@@ -1,0 +1,13 @@
+torch>=1.7.0
+torchvision>=0.8.0
+numpy
+opencv-python
+scipy
+matplotlib
+tqdm
+Pillow
+h5py
+scikit-learn
+tensorflow
+visdom
+graphviz
