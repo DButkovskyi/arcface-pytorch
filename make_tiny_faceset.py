@@ -24,6 +24,7 @@ for person_idx, person_name in enumerate(names):
         img = (lfw.images[i]).astype("uint8")
         # lfw.images is HxWx3 in RGB uint8 already
         from PIL import Image
-        Image.fromarray(img).save(person_dir / f"img_{k:03d}.jpg")
+        Image.fromarray(img).resize((128, 128)).save(person_dir / f"img_{k:03d}.jpg")
+
 
 print("Wrote dataset to:", out.resolve())

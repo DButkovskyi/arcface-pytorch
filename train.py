@@ -47,11 +47,11 @@ if __name__ == '__main__':
         criterion = torch.nn.CrossEntropyLoss()
 
     if opt.backbone == 'resnet18':
-        model = resnet_face18(use_se=opt.use_se)
+        model = resnet_face18(in_channel=opt.input_shape[0], use_se=opt.use_se)
     elif opt.backbone == 'resnet34':
-        model = resnet34()
+        model = resnet34(in_channel=opt.input_shape[0])
     elif opt.backbone == 'resnet50':
-        model = resnet50()
+        model = resnet50(in_channel=opt.input_shape[0])
 
     if opt.metric == 'add_margin':
         metric_fc = AddMarginProduct(512, opt.num_classes, s=30, m=0.35)

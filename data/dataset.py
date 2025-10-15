@@ -45,7 +45,7 @@ class Dataset(data.Dataset):
         splits = sample.split()
         img_path = splits[0]
         data = Image.open(img_path)
-        data = data.convert('L')
+        data = data.convert('RGB')
         data = self.transforms(data)
         label = np.int32(splits[1])
         return data.float(), label

@@ -19,7 +19,7 @@ class Config(object):
     test_list = 'test.txt'
 
     lfw_root = "data_lfw_tiny"
-    lfw_test_list = "lfw_test_pair.txt"
+    lfw_test_list = "tiny_pairs.txt"
 
     checkpoints_path = 'checkpoints'
     load_model_path = None
