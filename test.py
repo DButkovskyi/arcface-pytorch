@@ -13,6 +13,8 @@ import numpy as np
 import time
 from config import Config
 from torch.nn import DataParallel
+from PIL import Image
+from torchvision import transforms
 
 
 def get_lfw_list(pair_list):
@@ -31,15 +33,27 @@ def get_lfw_list(pair_list):
 
 
 def load_image(img_path):
-    image = cv2.imread(img_path, 0)
+    image = cv2.imread(img_path)  # Load as BGR (3 channels)
     if image is None:
         return None
-    image = np.dstack((image, np.fliplr(image)))
-    image = image.transpose((2, 0, 1))
-    image = image[:, np.newaxis, :, :]
+    
+    # Convert BGR to RGB
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    
+    # Create original and flipped versions
+    image_flipped = np.fliplr(image)
+    
+    # Stack along batch dimension: shape will be (2, H, W, 3)
+    image = np.stack([image, image_flipped], axis=0)
+    
+    # Transpose to (2, 3, H, W) - (batch, channels, height, width)
+    image = image.transpose((0, 3, 1, 2))
+    
+    # Normalize
     image = image.astype(np.float32, copy=False)
     image -= 127.5
     image /= 127.5
+    
     return image
 
 
